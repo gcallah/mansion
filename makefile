@@ -1,6 +1,7 @@
 include common.mk
 
 # Our directories
+REQ_DIR = .
 
 FORCE:
 
