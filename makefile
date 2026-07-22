@@ -2,6 +2,7 @@ include common.mk
 
 # Our directories
 REQ_DIR = .
+DASH_DIR = dashboard
 
 FORCE:
 
@@ -12,6 +13,7 @@ github: FORCE
 	git push origin main
 
 all_tests: FORCE
+	cd $(DASH_DIR); make tests
 
 dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
