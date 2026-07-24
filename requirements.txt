@@ -1,1 +1,1 @@
-textapp
+git+https://github.com/TandonDevOps/textapp
