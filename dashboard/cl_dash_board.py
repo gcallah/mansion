@@ -2,22 +2,32 @@ import textapp.text_app as tapp
 
 from dashboard.dash_board import Dashboard
 
+MAIN_MENU = 'Welcome to the Mansion dashboard.'
+
+TEST_MENU = {
+    tapp.TYPE: tapp.MENU,
+    tapp.TITLE: MAIN_MENU,
+    tapp.DEFAULT: tapp.CONTINUE,
+    tapp.CHOICES: {
+        tapp.CONTINUE: {tapp.FUNC: tapp.go_on,
+                        tapp.TEXT: "Continue displaying menu"},
+        tapp.EXIT: {tapp.FUNC: tapp.exit,
+                    tapp.TEXT: "Exit", },
+    },
+}
+
 
 class CLDashboard(Dashboard):
-    def __init__(self, menu: str):
-        self.menu = menu
+    def __init__(self):
+        print('Starting Command Line Dashboard')
+
+    def run(self):
+        return tapp.run_menu_cont(tapp.TEST_MENU)
 
 
 def main():
-    # Running form in test mode needs to be fixed!
-    ret = tapp.data_repr(tapp.TEST_DATA)
-    print(tapp.fmt.text(ret[tapp.DATA_TEXT]))
-    if tapp.mode == tapp.PROD:
-        mod_form = tapp.run_form(tapp.TEST_FORM)
-        # only the field values will go back to the server:
-        form_info = f"The modified form is: {mod_form[tapp.FLDS]}"
-        print(tapp.fmt.menu_choice(form_info))
-    return tapp.run_menu_cont(tapp.TEST_MENU)
+    cldash = CLDashboard()
+    cldash.run()
 
 
 if __name__ == "__main__":
