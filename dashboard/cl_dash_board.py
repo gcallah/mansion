@@ -20,6 +20,8 @@ TEST_MENU = {
 
 class CLDashboard(Dashboard):
     def __init__(self, menu: dict):
+        if not isinstance(menu, dict):
+            raise TypeError('menu must be a dictionary')
         self.menu = menu
 
     def run(self):
