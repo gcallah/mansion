@@ -1,4 +1,5 @@
 import textapp.text_app as tapp
+from textapp.text_app import SUCCESS, EXIT  # noqa 401
 
 from dashboard.dash_board import Dashboard
 
@@ -11,22 +12,22 @@ TEST_MENU = {
     tapp.CHOICES: {
         tapp.CONTINUE: {tapp.FUNC: tapp.go_on,
                         tapp.TEXT: "Continue displaying menu"},
-        tapp.EXIT: {tapp.FUNC: tapp.exit,
-                    tapp.TEXT: "Exit", },
+        EXIT: {tapp.FUNC: tapp.exit,
+               tapp.TEXT: "Exit", },
     },
 }
 
 
 class CLDashboard(Dashboard):
-    def __init__(self):
-        print('Starting Command Line Dashboard')
+    def __init__(self, menu: dict):
+        self.menu = menu
 
     def run(self):
-        return tapp.run_menu_cont(tapp.TEST_MENU)
+        return tapp.run_menu_cont(self.menu)
 
 
 def main():
-    cldash = CLDashboard()
+    cldash = CLDashboard(TEST_MENU)
     cldash.run()
 
 
