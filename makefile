@@ -12,7 +12,7 @@ github: FORCE
 	- git commit -a
 	git push origin main
 
-all_tests: FORCE
+all_tests:
 	cd $(DASH_DIR); make tests
 
 dev_env: FORCE
@@ -22,3 +22,9 @@ dev_env: FORCE
 
 prod_env: FORCE
 	pip install -r $(REQ_DIR)/requirements.txt
+
+mutate: FORCE
+	mutmut run
+
+type_checks: FORCE
+	mypy $(DASH_DIR)/cl_dash_board.py

@@ -1,35 +1,47 @@
 import textapp.text_app as tapp
-from textapp.text_app import SUCCESS, EXIT  # noqa 401
 
+import dashboard.menu as menu
+from dashboard.menu import SUCCESS, EXIT  # noqa 401
 from dashboard.dash_board import Dashboard
 
-MAIN_MENU = 'Welcome to the Mansion dashboard.'
 
-TEST_MENU = {
+def word_count():  # text: str) -> int:
+    """Count the number of words in a string."""
+    return 0
+    # return len(text.split())
+
+
+MAIN_MENU = 'Welcome to the Mansion dashboard.'
+WORD_COUNT = 'W'
+
+TOP_MENU = {
     tapp.TYPE: tapp.MENU,
     tapp.TITLE: MAIN_MENU,
-    tapp.DEFAULT: tapp.CONTINUE,
+    tapp.DEFAULT: WORD_COUNT,
     tapp.CHOICES: {
-        tapp.CONTINUE: {tapp.FUNC: tapp.go_on,
-                        tapp.TEXT: "Continue displaying menu"},
+        WORD_COUNT: {tapp.FUNC: word_count,
+                     tapp.TEXT: "Word count"},
         EXIT: {tapp.FUNC: tapp.exit,
                tapp.TEXT: "Exit", },
     },
 }
 
 
+top_menu = menu.Menu(TOP_MENU)
+
+
 class CLDashboard(Dashboard):
-    def __init__(self, menu: dict):
-        if not isinstance(menu, dict):
-            raise TypeError('menu must be a dictionary')
-        self.menu = menu
+    def __init__(self, menu_obj: menu.Menu):
+        if not isinstance(menu_obj, menu.Menu):
+            raise TypeError('menu must be a Menu object')
+        self.menu = menu_obj
 
     def run(self):
-        return tapp.run_menu_cont(self.menu)
+        return tapp.run_menu_cont(self.menu.to_dict())
 
 
 def main():
-    cldash = CLDashboard(TEST_MENU)
+    cldash = CLDashboard(top_menu)
     cldash.run()
 
 
